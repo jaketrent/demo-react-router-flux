@@ -1,6 +1,9 @@
 var React = require('react')
 var Router = require('react-router')
 
+var Books = require('./books/list')
+var Book = require('./books/show')
+
 var Route = Router.Route
 var RouteHandler = Router.RouteHandler
 var Link = Router.Link
@@ -30,18 +33,12 @@ var AppIndex = React.createClass({
   }
 })
 
-var Books = React.createClass({
-  render: function () {
-    return (
-      <div>Books page</div>
-    )
-  }
-})
-
 var routes = (
   <Route handler={App}>
     <DefaultRoute handler={AppIndex} />
-    <Route name="booksPage" path="books" handler={Books} />
+    <Route name="booksPage" path="books" handler={Books}>
+      <Route name="book" path=":id" handler={Book} />
+    </Route>
   </Route>
 )
 

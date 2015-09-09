@@ -17,6 +17,7 @@
     "flux": "^2.1.1",
     "html-webpack-plugin": "^1.5.2",
     "html-webpack-template": "^2.2.0",
+    "lodash": "^3.10.1",
     "react": "^0.13.2",
     "react-router": "^0.13.3",
     "rf-release": "^0.4.0",
