@@ -1,22 +1,50 @@
-import React from 'react'
-import Router from 'react-router'
+var React = require('react')
+var Router = require('react-router')
 
-import App from './chrome/app'
-import AppIndex from './chrome/app-index'
-import Book from './books/show'
-import Books from './books/list'
+var Route = Router.Route
+var RouteHandler = Router.RouteHandler
+var Link = Router.Link
+var DefaultRoute = Router.DefaultRoute
 
-const { Route, DefaultRoute } = Router
+var App = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <h1>Books Browser</h1>
+        <nav>
+          <Link to="booksPage">Books</Link>
+        </nav>
+        <main>
+          <RouteHandler />
+        </main>
+      </div>
+    )
+  }
+})
 
-const routes = (
+var AppIndex = React.createClass({
+  render: function () {
+    return (
+      <h2>Welcome, ya'll!</h2>
+    )
+  }
+})
+
+var Books = React.createClass({
+  render: function () {
+    return (
+      <div>Books page</div>
+    )
+  }
+})
+
+var routes = (
   <Route handler={App}>
     <DefaultRoute handler={AppIndex} />
-    <Route name="books" path="books" handler={Books}>
-      <Route name="book" path=":id" handler={Book} />
-    </Route>
+    <Route name="booksPage" path="books" handler={Books} />
   </Route>
 )
 
-Router.run(routes, Router.HashLocation, Root => {
+Router.run(routes, Router.HashLocation, function (Root) {
   React.render(<Root />, document.getElementById('app'))
 })
