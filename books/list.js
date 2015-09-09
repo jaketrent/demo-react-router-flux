@@ -8,16 +8,6 @@ import store from './store'
 
 const { RouteHandler, Link } = Router
 
-// bad things
-// 1 - relies on indeterminant order of operations -- network request, mounting
-// 2 - data is only available because of ui composition
-
-// flux -- help organize
-// separate api helper
-// separate actions
-// create store that can tell us about data
-// hook up components to store
-
 @autobind
 export default class Books extends React.Component {
   state = this.getStateFromStores()

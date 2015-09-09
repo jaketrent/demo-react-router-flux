@@ -39,20 +39,3 @@ class Store extends EventEmitter {
 const store = new Store()
 
 export default store
-
-
-
-
-
-//var _books = []
-//
-//export function setBooks(books) {
-//  _books = books
-//}
-//
-//export function getBooks() {
-//  return _books
-//}
-//
-//export function findBook(id) {
-//}
