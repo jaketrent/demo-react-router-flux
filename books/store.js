@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator'
 import EventEmitter from 'events'
 
-import appDispatcher from './app-dispatcher'
+import appDispatcher from '../common/app-dispatcher'
 
 @autobind
 class Store extends EventEmitter {

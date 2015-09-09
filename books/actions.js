@@ -1,6 +1,6 @@
 import * as api from './api'
 
-import appDispatcher from './app-dispatcher'
+import appDispatcher from '../common/app-dispatcher'
 
 export function fetch() {
   appDispatcher.dispatch({
