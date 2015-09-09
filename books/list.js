@@ -28,7 +28,7 @@ export default class Books extends React.Component {
   }
   renderBook(book) {
     return (
-      <li key={book.id}>
+      <li style={styles.navItem} key={book.id}>
         <Link to="book" params={{ id: book.id }}>{book.title}</Link>
       </li>
     )
@@ -40,11 +40,34 @@ export default class Books extends React.Component {
     return (
       <div>
         <h2>Books</h2>
-        <ul>
-          {this.renderBooks(this.state.books)}
-        </ul>
-        <RouteHandler />
+        <div style={styles.container}>
+          <ul style={styles.nav}>
+            {this.renderBooks(this.state.books)}
+          </ul>
+          <main style={styles.main}>
+            <RouteHandler />
+          </main>
+        </div>
       </div>
     )
+  }
+}
+
+
+const styles = {
+  container: {
+    display: 'flex'
+  },
+  nav: {
+    width: 200,
+    fontSize: '.8em',
+    listStyle: 'none',
+    padding: '0 20px 0 0'
+  },
+  navItem: {
+    marginBottom: 6
+  },
+  main: {
+    flex: 1
   }
 }

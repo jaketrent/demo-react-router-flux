@@ -7,7 +7,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>App</h1>
+        <h1>Books Browser</h1>
         <nav>
           <Link to="books">Books</Link>
         </nav>
