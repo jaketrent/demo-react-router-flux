@@ -1,26 +1,40 @@
+import autobind from 'autobind-decorator'
 import axios from 'axios'
 import React from 'react'
 import Router from 'react-router'
 
-import * as store from './store'
+import * as actions from './actions'
+import store from './store'
 
 const { RouteHandler, Link } = Router
 
-export default class Books extends React.Component {
-  state = {
-    books: store.getBooks()
-  }
-  componentWillMount() {
-    if (this.state.books.length > 0) return
+// bad things
+// 1 - relies on indeterminant order of operations -- network request, mounting
+// 2 - data is only available because of ui composition
 
-    axios({
-      url: 'http://data.jaketrent.com/api/v1/books'
-    }).then(res => {
-      store.setBooks(res.data.books)
-      this.setState({
-        books: res.data.books
-      })
-    })
+// flux -- help organize
+// separate api helper
+// separate actions
+// create store that can tell us about data
+// hook up components to store
+
+@autobind
+export default class Books extends React.Component {
+  state = this.getStateFromStores()
+  componentWillMount() {
+    store.listen(this.onStoreChange)
+    actions.fetch()
+  }
+  componentWillUnmount() {
+    store.unlisten(this.onStoreChange)
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStores())
+  }
+  getStateFromStores() {
+    return {
+      books: store.getBooks()
+    }
   }
   renderBook(book) {
     return (

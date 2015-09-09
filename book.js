@@ -1,19 +1,35 @@
+import autobind from 'autobind-decorator'
 import React from 'react'
 
-import * as store from './store'
+import store from './store'
 
+@autobind
 export default class Book extends React.Component {
-  getBook() {
-    return store.findBook(this.props.params.id) || {}
+  state = this.getStateFromStores(this.props)
+  componentWillMount() {
+    store.listen(this.onStoreChange)
+  }
+  componentWillUnmount() {
+    store.unlisten(this.onStoreChange)
+  }
+  componentWillReceiveProps(newProps) {
+    this.setState(this.getStateFromStores(newProps))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStores(this.props))
+  }
+  getStateFromStores(props) {
+    return {
+      book: store.findBook(props.params.id) || {}
+    }
   }
   render() {
-    const book = this.getBook(this.props.params.id)
     return (
       <div>
-        <h1>{book.title} ({this.props.params.id})</h1>
-        <img src={book.cover_url} alt={book.title} />
+        <h1>{this.state.book.title} ({this.props.params.id})</h1>
+        <img src={this.state.book.cover_url} alt={this.state.book.title} />
         <p>
-          {book.description}
+          {this.state.book.description}
         </p>
       </div>
     )
